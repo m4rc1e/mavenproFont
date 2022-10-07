@@ -40,6 +40,7 @@ jobs:
           fetch-depth: 0
       - uses: m4rc1e/font-browser-tests-action@main
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           path: "./fonts/variable/*.ttf"
           fetch-before: "googlefonts"
           path-before: "*.ttf"
