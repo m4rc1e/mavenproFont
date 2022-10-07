@@ -40,8 +40,8 @@ jobs:
           fetch-depth: 0
       - uses: m4rc1e/font-browser-tests-action@main
         with:
-          path: ./fonts/variable/*.ttf
-          fetch-before: googlefonts
-          path-before: *.ttf
+          path: "./fonts/variable/*.ttf"
+          fetch-before: "googlefonts"
+          path-before: "*.ttf"
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
