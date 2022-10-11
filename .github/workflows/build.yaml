@@ -44,5 +44,27 @@ jobs:
           path: "./fonts/variable/*.ttf"
           fetch-before: "googlefonts"
           path-before: "*.ttf"
-          run-diffenator: false
+          run-diffenator: false # we only want browser screenshot diffs
           run-diffbrowsers: true
+
+  diff:
+    needs:
+      - build-fonts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: built-fonts
+          path: 'fonts'
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - uses: m4rc1e/font-browser-tests-action@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: "./fonts/variable/*.ttf"
+          fetch-before: "googlefonts"
+          path-before: "*.ttf"
+          run-diffenator: true
+          run-diffbrowsers: false
