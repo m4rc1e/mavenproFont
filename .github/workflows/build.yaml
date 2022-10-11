@@ -2,8 +2,12 @@ name: Build font and specimen
 
 on: [push]
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
-  build:
+  build-fonts:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -11,27 +15,56 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Install Linux dependencies
-      run: |
-        sudo snap install yq
     - name: Build font
       run: make build
-    - name: Check with fontbakery
-      run: make test
-      continue-on-error: true
-    - name: Generate proofs
-      run: make proof
-    - name: Gather
-      run: |
-          mkdir for-gh-pages
-          mv fontbakery-report.html for-gh-pages
-          mv proof/* for-gh-pages
-    - name: Archive artifacts
-      uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
-        name: Artifacts
-        path: |
-          for-gh-pages
-    - name: Remove temp folder
-      run: |
-          rm -rf for-gh-pages
+        name: built-fonts
+        path: 'fonts'
+  
+  screenshot:
+    needs:
+      - build-fonts
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: built-fonts
+          path: 'fonts'
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - uses: m4rc1e/font-browser-tests-action@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: "./fonts/variable/*.ttf"
+          fetch-before: "googlefonts"
+          path-before: "*.ttf"
+          run-diffenator: false # we only want browser screenshot diffs
+          run-diffbrowsers: true
+
+  diff:
+    needs:
+      - build-fonts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: built-fonts
+          path: 'fonts'
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - uses: m4rc1e/font-browser-tests-action@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: "./fonts/variable/*.ttf"
+          fetch-before: "googlefonts"
+          path-before: "*.ttf"
+          run-diffenator: true
+          run-diffbrowsers: false
