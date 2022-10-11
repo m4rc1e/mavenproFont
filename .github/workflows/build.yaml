@@ -27,7 +27,7 @@ jobs:
       - build-fonts
     strategy:
       matrix:
-        os: [windows-latest] #[ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest] #, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/download-artifact@v3
@@ -44,5 +44,5 @@ jobs:
           path: "./fonts/variable/*.ttf"
           fetch-before: "googlefonts"
           path-before: "*.ttf"
-#      - name: Setup tmate session
-#        uses: mxschmitt/action-tmate@v3
+          run-diffenator: false
+          run-diffbrowsers: true
