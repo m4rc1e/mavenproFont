@@ -42,10 +42,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: "./fonts/variable/*.ttf"
-          #fetch-before: "googlefonts"
-          #path-before: "*.ttf"
-          #run-diffenator: false # we only want browser screenshot diffs
-          #run-diffbrowsers: true
 
   diff:
     needs:
