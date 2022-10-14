@@ -1,10 +1,6 @@
 name: Test fonts
 
-on:
-  workflow_run:
-    workflows: ["Build font and specimen"]
-    types:
-      - completed
+on: [push]
 
 permissions:
   contents: read
