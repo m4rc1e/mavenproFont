@@ -22,35 +22,29 @@ jobs:
         workflow: build.yaml
         name: built-fonts 
 
-  screenshot:
-    needs:
-      - get-fonts
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-      - uses: m4rc1e/font-browser-tests-action@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: "./built-fonts/variable/*.ttf"
-          fetch-before: "googlefonts"
-          path-before: "*.ttf"
-          run-diffenator: false # we only want browser screenshot diffs
-          run-diffbrowsers: true
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
 
-  diff:
-    needs:
-      - get-fonts
-    runs-on: ubuntu-latest
-    steps:
-      - uses: m4rc1e/font-browser-tests-action@main
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: "./built-fonts/variable/*.ttf"
-          fetch-before: "googlefonts"
-          path-before: "*.ttf"
-          run-diffenator: true
-          run-diffbrowsers: false
+    - uses: m4rc1e/font-browser-tests-action@main
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path: "./built-fonts/variable/*.ttf"
+        fetch-before: "googlefonts"
+        path-before: "*.ttf"
+        run-diffenator: false # we only want browser screenshot diffs
+        run-diffbrowsers: true
+
+#  diff:
+#    needs:
+#      - get-fonts
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: m4rc1e/font-browser-tests-action@main
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          path: "./built-fonts/variable/*.ttf"
+#          fetch-before: "googlefonts"
+#          path-before: "*.ttf"
+#          run-diffenator: true
+#          run-diffbrowsers: false
+#
