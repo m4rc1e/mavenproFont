@@ -41,11 +41,12 @@ jobs:
       - uses: m4rc1e/font-browser-tests-action@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: "./fonts/variable/*.ttf"
+          path: ./fonts/variable/*.ttf
           fetch-before: "googlefonts"
           path-before: "*.ttf"
           run-diffenator: false # we only want browser screenshot diffs
           run-diffbrowsers: true
+          filter-styles: "Regular|Bold|Black"
 
   diff:
     needs:
@@ -68,3 +69,4 @@ jobs:
           path-before: "*.ttf"
           run-diffenator: true
           run-diffbrowsers: false
+          filter-styles: "Regular"
