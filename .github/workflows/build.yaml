@@ -46,6 +46,7 @@ jobs:
           path-before: "*.ttf"
           run-diffenator: false # we only want browser screenshot diffs
           run-diffbrowsers: true
+          filter-styles: "Regular|Bold|Black"
 
   diff:
     needs:
@@ -68,3 +69,4 @@ jobs:
           path-before: "*.ttf"
           run-diffenator: true
           run-diffbrowsers: false
+          filter-styles: "Regular"
