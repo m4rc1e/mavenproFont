@@ -46,6 +46,7 @@ jobs:
           path-before: "*.ttf"
           run-diffenator: false # we only want browser screenshot diffs
           run-diffbrowsers: true
+          pt-size: 14
 
   diff:
     needs:
