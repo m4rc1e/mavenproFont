@@ -17,7 +17,7 @@ jobs:
         python-version: 3.8
     - name: Build font
       run: make build
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
         name: built-fonts
         path: 'fonts'
