@@ -1,8 +1,5 @@
 {
 .appVersion = "3249";
-DisplayStrings = (
-"/dcaron"
-);
 classes = (
 {
 automatic = 1;
@@ -39989,5 +39986,5 @@ tH = "65";
 };
 };
 versionMajor = 2;
-versionMinor = 3;
+versionMinor = 103;
 }
