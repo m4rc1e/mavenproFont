@@ -1,5 +1,8 @@
 {
 .appVersion = "3249";
+DisplayStrings = (
+"/Lslash"
+);
 classes = (
 {
 automatic = 1;
@@ -5292,7 +5295,7 @@ unicode = 1E3A;
 },
 {
 glyphname = Lslash;
-lastChange = "2016-08-18 15:48:05 +0000";
+lastChange = "2025-02-07 10:43:39 +0000";
 layers = (
 {
 components = (
@@ -5325,10 +5328,10 @@ paths = (
 {
 closed = 1;
 nodes = (
-"4 284 LINE",
-"4 162 LINE",
 "405 382 LINE",
-"405 504 LINE"
+"405 504 LINE",
+"4 284 LINE",
+"4 162 LINE"
 );
 }
 );
